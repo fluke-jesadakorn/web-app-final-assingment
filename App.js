@@ -4,8 +4,7 @@ import { dataList } from './component/json'
 
 export default App = () => {
   const [fetchJson, getFetchJson] = useState([]);
-  console.log(dataList)
   return (
-    <ApiChart />
+    <ApiChart json = {dataList}/>
   )
 }

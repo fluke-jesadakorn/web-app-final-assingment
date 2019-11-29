@@ -16,12 +16,13 @@ export default class FetchExample extends React.Component {
             .then((response) => response.json())
             .then((responseJson) => {
                 const getData = responseJson.Data.Data;
-                console.log(getData)
+                // console.log(getData)
                 this.setState({
                     isLoading: false,
                     data: getData,
                 });
             });
+        
     }
 
     renderList(item) {
@@ -34,6 +35,7 @@ export default class FetchExample extends React.Component {
 
     render() {
         const { container, font } = styles
+        console.log(this.props.json)
         if (this.state.isLoading) {
             return (
                 <View style={{ flex: 1, padding: 20 }}>
