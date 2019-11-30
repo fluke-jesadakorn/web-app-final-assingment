@@ -3,8 +3,14 @@ import ApiChart from './component/cryptochart'
 import { dataList } from './component/json'
 
 export default App = () => {
-  const [fetchJson, getFetchJson] = useState([]);
+  var [fetchJson, setFetchJson] = useState([]);
+
+  fetch('https://min-api.cryptocompare.com/data/v2/histominute?fsym=BTC&tsym=THB&limit=10')
+    .then((response) => response.json())
+    .then((responseJson) => {
+      setFetchJson = responseJson.Data.Data;
+    });
   return (
-    <ApiChart json = {dataList}/>
+    <ApiChart json={dataList} />
   )
 }
