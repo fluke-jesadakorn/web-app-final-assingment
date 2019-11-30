@@ -1,13 +1,16 @@
 import React from 'react';
 import { StyleSheet, FlatList, Text, View, Image, TouchableHighlight } from 'react-native';
+import { dataList } from './json'
 
-export default crypochart = (props) => {
+export default crypochart = () => {
 
     renderList = (id, symbol, name, logo) => {
         return (
+            <TouchableHighlight onPress = {this.log}>
             <View style={styles.card} onPress={this.log}>
                 <Image style={{ width: 25, height: 25, marginTop: 1 }} source={{ uri: logo }} /><Text style={styles.font}> {symbol}/THB</Text>
             </View>
+            </TouchableHighlight>
         );
     }
 
@@ -21,13 +24,12 @@ export default crypochart = (props) => {
 
     return (
         <View style={styles.background}>
-            <TouchableHighlight>
+            
                 <FlatList
-                    data={props.json}
+                    data={dataList}
                     renderItem={({ item }) => this.renderList(item.id, item.symbol, item.name, item.logo)}
                     keyExtractor={({ id }, index) => index.toString()}
                 />
-            </TouchableHighlight>
         </View>
     );
 
