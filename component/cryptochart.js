@@ -1,62 +1,56 @@
 import React from 'react';
-import { StyleSheet, FlatList, ActivityIndicator, Text, View, Image } from 'react-native';
+import { StyleSheet, FlatList, Text, View, Image, TouchableHighlight } from 'react-native';
 
-export default class FetchExample extends React.Component {
+export default crypochart = (props) => {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            isLoading: false,
-            data: []
-        }
-    }
-
-    renderList(id, symbol, name, logo) {
+    renderList = (id, symbol, name, logo) => {
         return (
-            <View style={styles.container}>
-                {/* <Text>{id}</Text> */}
-                <Text>{symbol}</Text>
-                <Text>{name}</Text>
-                <Image style = {{width: 66, height: 58}} source = {{uri : logo}}></Image>
+            <View style={styles.card} onPress={this.log}>
+                <Image style={{ width: 25, height: 25, marginTop: 1 }} source={{ uri: logo }} /><Text style={styles.font}> {symbol}/THB</Text>
             </View>
         );
     }
 
-    render() {
-        const { container, font } = styles
-        let json = this.props.json
-        if (this.state.isLoading) {
-            return (
-                <View style={{ flex: 1, padding: 20 }}>
-                    <ActivityIndicator />
-                </View>
-            )
-        }
+    log = () => {
+        return fetch('https://min-api.cryptocompare.com/data/v2/histominute?fsym=BTC&tsym=THB&limit=10')
+        .then((response) => response.json())
+        .then((responseJson) => {
+          setFetchJson = responseJson.Data.Data;
+        });
+    }
 
-        return (
-            <View>
+    return (
+        <View style={styles.background}>
+            <TouchableHighlight>
                 <FlatList
-                    data={this.props.json}
+                    data={props.json}
                     renderItem={({ item }) => this.renderList(item.id, item.symbol, item.name, item.logo)}
                     keyExtractor={({ id }, index) => index.toString()}
                 />
-            </View>
-        );
+            </TouchableHighlight>
+        </View>
+    );
 
-        // return (
-        //     <Text>{JSON.stringify(this.state.data)}</Text>
-        // )
-    }
 }
 const styles = StyleSheet.create({
-    container: {
-        padding:5,
-        marginBottom:10,
-        marginLeft:"2%",
-        width:"96%",
-        borderRightColor:"black",
-        borderWidth:5,
-        borderRadius:3,
+    header: {
+
+    },
+    background: {
+        marginTop:0,
+        backgroundColor: "lightgray",
+    },
+    card: {
+        padding: 5,
+        marginTop: 10,
+        marginLeft: "2%",
+        width: "96%",
+        backgroundColor: "white",
+        borderWidth: 5,
+        borderRadius: 3,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: "space-between",
     },
     font: {
         fontSize: 20
