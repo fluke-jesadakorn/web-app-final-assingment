@@ -1,36 +1,35 @@
-import React from 'react';
-import { StyleSheet, FlatList, Text, View, Image, TouchableHighlight } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, FlatList, Text, View, Image, TouchableHighlight, ScrollView } from 'react-native';
 import { dataList } from './json'
 
 export default crypochart = () => {
-
+    var [FetchJson,setFetchJson] = useState([])
+    console.log(FetchJson)
     renderList = (id, symbol, name, logo) => {
         return (
-            <TouchableHighlight onPress = {this.log}>
-            <View style={styles.card} onPress={this.log}>
-                <Image style={{ width: 25, height: 25, marginTop: 1 }} source={{ uri: logo }} /><Text style={styles.font}> {symbol}/THB</Text>
-            </View>
+            <TouchableHighlight onPress={this.log}>
+                <View style={styles.card} onPress={this.log}>
+    <Image style={{ width: 25, height: 25, marginTop: 1 }} source={{ uri: logo }} /><Text style={styles.font}> {symbol}/THB </Text> 
+                </View>
             </TouchableHighlight>
         );
     }
 
-    log = () => {
-        return fetch('https://min-api.cryptocompare.com/data/v2/histominute?fsym=BTC&tsym=THB&limit=10')
-        .then((response) => response.json())
-        .then((responseJson) => {
-          setFetchJson = responseJson.Data.Data;
-        });
-    }
+    setTimeout(()=>{fetch('https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,BCH,XRP,ZEC,LTC,DOGE,OMG,EVX,BNB&tsyms=THB')
+    .then((response) => response.json())
+    .then((responseJson) => {                
+        setFetchJson(responseJson)
+    })},5000)
 
     return (
-        <View style={styles.background}>
-            
-                <FlatList
-                    data={dataList}
-                    renderItem={({ item }) => this.renderList(item.id, item.symbol, item.name, item.logo)}
-                    keyExtractor={({ id }, index) => index.toString()}
-                />
-        </View>
+        <ScrollView style={styles.background}>
+            <Text>{JSON.stringify(FetchJson)}</Text>
+            <FlatList
+                data={dataList}
+                renderItem={({ item }) => this.renderList(item.id, item.symbol, item.name, item.logo)}
+                keyExtractor={({ id }, index) => index.toString()}
+            />
+        </ScrollView>
     );
 
 }
@@ -39,7 +38,7 @@ const styles = StyleSheet.create({
 
     },
     background: {
-        marginTop:0,
+        marginTop: 0,
         backgroundColor: "lightgray",
     },
     card: {

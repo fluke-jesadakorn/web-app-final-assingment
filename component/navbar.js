@@ -1,30 +1,30 @@
 import React from "react"
-import { StyleSheet, TouchableHighlight, Button, View } from "react-native"
-import NavBar, { NavTitle,NavGroup,NavButton,NavButtonText } from "react-native-nav"
+import { StyleSheet, TouchableHighlight, Button, View, TouchableWithoutFeedback, TouchableOpacity } from "react-native"
+import NavBar, { NavTitle, NavGroup, NavButton, NavButtonText } from "react-native-nav"
 
 export default navbar = ({ history }) => {
     return (
         <View>
             <NavBar style={styles}>
-                <TouchableHighlight onPress={() => history.push('/home')}>
-                    <NavTitle style={styles.title} onPress = {() => history.push('/t')}>
+                <TouchableOpacity onPress={() => history.push('/')}>
+                    <NavTitle style={styles.title} >
                         {"Home"}
                     </NavTitle>
-                </TouchableHighlight>
+                </TouchableOpacity>
                 <NavGroup>
-                    <NavButton onPress = {() => history.push('/chart')}>
-                        <NavButtonText style={styles.buttonText}>
-                            {"Chart"}
+                    <NavButton onPress={() => history.push('/chart')}>
+                        <NavButtonText style={styles.buttonText} >
+                            {"CoinPrice"}
                         </NavButtonText>
                     </NavButton>
-                    <NavButton>
+                    <NavButton onPress={() => history.push('/member')}>
                         <NavButtonText style={styles.buttonText}>
-                            {"Button"}
+                            {"Member"}
                         </NavButtonText>
                     </NavButton>
-                    <NavButton>
+                    <NavButton onPress={() => history.push('/login')}>
                         <NavButtonText style={styles.buttonText}>
-                            {"Button"}
+                            {"Login"}
                         </NavButtonText>
                     </NavButton>
                 </NavGroup>
