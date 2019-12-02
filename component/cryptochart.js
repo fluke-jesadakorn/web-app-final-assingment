@@ -3,8 +3,8 @@ import { StyleSheet, FlatList, Text, View, Image, TouchableHighlight, ScrollView
 import { dataList } from './json'
 
 export default crypochart = () => {
-    var [FetchJson,setFetchJson] = useState([])
-    console.log(FetchJson)
+    // var [FetchJson,setFetchJson] = useState([])
+    // console.log(FetchJson)
     renderList = (id, symbol, name, logo) => {
         return (
             <TouchableHighlight onPress={this.log}>
@@ -15,15 +15,14 @@ export default crypochart = () => {
         );
     }
 
-    setTimeout(()=>{fetch('https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,BCH,XRP,ZEC,LTC,DOGE,OMG,EVX,BNB&tsyms=THB')
-    .then((response) => response.json())
-    .then((responseJson) => {                
-        setFetchJson(responseJson)
-    })},5000)
+    // setTimeout(()=>{fetch('https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,BCH,XRP,ZEC,LTC,DOGE,OMG,EVX,BNB&tsyms=THB')
+    // .then((response) => response.json())
+    // .then((responseJson) => {                
+    //     setFetchJson(responseJson)
+    // })},5000)
 
     return (
         <ScrollView style={styles.background}>
-            <Text>{JSON.stringify(FetchJson)}</Text>
             <FlatList
                 data={dataList}
                 renderItem={({ item }) => this.renderList(item.id, item.symbol, item.name, item.logo)}
